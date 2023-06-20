@@ -1,4 +1,36 @@
-nav-container {
-    display: flex;
-    background-color: yellow;
+
+#nav-container {
+    background-color: white;
+}
+
+#navigation-bar {
+    text-transform: uppercase;
+    text-align: end;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    
+}
+
+
+@media only screen and (min-width: 1024px) {
+    
+    #nav-container  {
+    text-align: start;
+    padding: 50px 100px 0px;
+  }   
+
+  #nav-container a {
+    padding: 0;
+  }          
+
+  #navigation-bar {
+   
+    text-align: end;
+    color: black;
+    padding: 0 0 0 100px;
+   }
+
+
+
 }

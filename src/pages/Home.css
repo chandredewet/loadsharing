@@ -1,0 +1,47 @@
+home-container {
+    margin: 0;
+    padding: 0 0;
+    /* left:0; */
+}
+
+#home-heading {
+    color: #3962F1;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+
+#button-add {
+    border-radius: 0;
+    background-color: #3962F1;
+    border: 2px  #3962F1 solid;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+}
+
+#button-schedule {
+    border-radius: 0;
+    border: 2px #B48E06 solid;
+    color: #B48E06;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+}
+
+@media only screen and (min-width: 1024px) {
+
+    img {
+        width: 90%;
+        height:auto;
+    }
+
+    /* #hero-container{
+        padding-left:100px;
+    } */
+
+    #home-container{
+        padding:0 100px;
+        margin-top: 50px;
+    }
+}

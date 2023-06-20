@@ -7,6 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: white;
 }
 
 code {
@@ -48,5 +49,6 @@ p {
     font-size: 24px;
     color: #000000;
   }
+
 
 }
