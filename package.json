@@ -1,0 +1,23 @@
+{
+  "name": "loadsharing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install",
+    "server": "node ./server/server.js",
+    "client": "cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandredewet/loadsharing.git"
+  },
+  "author": "Chandre",
+  "bugs": {
+    "url": "https://github.com/chandredewet/loadsharing/issues"
+  },
+  "homepage": "https://github.com/chandredewet/loadsharing#readme",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
+}

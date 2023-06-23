@@ -23,7 +23,7 @@ const Users = () => {
     
   
   //fetching existing user data
-  useEffect(() => {
+  useEffect( () => {
     console.log("Fetching data...");
     fetch("http://localhost:5000")
       .then((res) => {
@@ -50,7 +50,7 @@ const Users = () => {
           console.log(loaded);
         }
       });
-  }, [errorInfo.errorStatus, loaded]);
+  }, [errorInfo.errorStatus, loaded, userData]);
   
     
      
