@@ -33,6 +33,33 @@ p {
   color: #000000;
 }
 
+/* sitewide call to action buttons */
+
+#button-container{
+  display:flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+#button-add {
+  border-radius: 0;
+  background-color: #3962F1;
+  border: 2px  #3962F1 solid;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  margin-right: 1rem;
+}
+
+#button-schedule {
+  border-radius: 0;
+  border: 2px #B48E06 solid;
+  color: #B48E06;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+}
+
 
 @media only screen and (min-width: 1024px) {
 
@@ -50,5 +77,10 @@ p {
     color: #000000;
   }
 
-
+  #general-heading {
+    margin-top: 30px;
+    color: #3962F1;
+    font-weight: 700;
+    font-size: 32px;
+}
 }

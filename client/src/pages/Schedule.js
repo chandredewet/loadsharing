@@ -1,8 +1,13 @@
 import React from 'react';
+import TestComponent from '../components/TestComponent';
 
 function Home() {
     return (
-        <h1>this is the schedule</h1>
+        <div>
+            <h1>this is the schedule</h1>
+            <TestComponent />
+        </div>
+        
     );
 }
 
