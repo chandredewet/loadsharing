@@ -5,9 +5,10 @@ import Areas from './../data/Areas';
 import Modal from 'react-bootstrap/Modal';
 
 
-const UsersForm = ({ mode, show,handleClose, getData, user}) => {
+const UsersForm = ({ mode, show, handleClose, getData, user}) => {
 
 const editMode = mode === "Edit" ? true : false;
+
 const [userData, setUserData] = useState({
   name: editMode ? user.name : "",
   email: editMode ? user.email: "",
@@ -20,17 +21,9 @@ const handleChange = (e) => {
     ...userData, 
     [name] : value 
   }))
-  console.log(userData);
 }
 
-
-
-
-
-//{id: 1, name: 'Chandre De Wet', email: 'chandredewet@gmail.com', colour: '#FF8D5C', user_area_name: 'city-of-cape-town-area-10'}
-
 const handleAdd = async (event) => {
-
     event.preventDefault();
     console.log("Sending data to server");
     
@@ -46,14 +39,31 @@ const handleAdd = async (event) => {
         console.log ("Success", response)
         await new Promise(resolve => setTimeout(resolve, 500));
         getData();
-        handleClose();
-       
+        handleClose();       
       }
-     
     } catch(err) {
       console.error(err);
     }
 } 
+
+const handleEdit = async (event) => {
+  event.preventDefault();
+  console.log(`Editing user ${user.id}`)
+  try{
+    const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+      method:"PUT",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(userData)
+    })
+    if (response.status === 200) {
+      getData();
+      handleClose();   
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
   return(
     <div className="text-center">  
 
@@ -114,7 +124,7 @@ const handleAdd = async (event) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleAdd}>
+          <Button variant="primary" onClick={editMode ? handleEdit : handleAdd}>
             Save Changes
           </Button>
         </Modal.Footer>

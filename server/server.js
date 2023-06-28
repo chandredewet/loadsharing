@@ -20,24 +20,27 @@ const pool = new Pool({
     },
   });
   
-  app.get("/users", async (req, res) => {
-    console.log("I get here")
-    try{
-      const users = await pool.query("SELECT * FROM ls_users")
-      res.json(users.rows)
-      console.log("I get here too")
-    } catch (error) {
-      console.error(error)
-      res.status(500).json(error);
-    }
-  });
+//show all users
+app.get("/users", async (req, res) => {
+  console.log("All users to be listed...")
+  try{
+    const users = await pool.query("SELECT * FROM ls_users")
+    res.json(users.rows)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json(error);
+  }
+});
 
+//add new user
 app.post("/users", async (req, res) => {
+  console.log("User to be added...")
   const {name, email, colour, area} = req.body
   console.log(name, email, colour, area);
   try {
     const newUser = await pool.query(`INSERT INTO ls_users (name, email, colour, user_area_name) VALUES ($1,$2,$3,$4)`, 
      [name, email, colour, area])
+    console.log(newUser)
     res.json(newUser);
   } catch (error) {
     console.error(error);
@@ -45,11 +48,30 @@ app.post("/users", async (req, res) => {
   }
 });
   
-    
-    //   .then((result) => {
-    //     res.json(result.rows)
-    //     console.log(res)
-    // })
-      
-  
+//edit user
+app.put('/users/:id', async (req,res) => {
+  console.log(`Edit user ${id} in process...`)
+  const { id } = req.params;
+  const {name, email, colour, area}  = req.body;
+  try {
+    const editUser = await pool.query('UPDATE ls_users SET  name = $1, email = $2, colour = $3, user_area_name = $4 WHERE id= $5;',[name, email, colour, area,id]);
+    res.json(editUser);
+  } catch(err) {
+    console.error(err)
+  }
+});
+
+//delete a user
+
+app.delete('/users/:id', async (req,res) => {
+  console.log(`Deleting user ${id}...`)
+  const { id } = req.params;
+  try {
+    const deleteUser = await pool.query('DELETE FROM ls_users WHERE id= $1;',[id])
+    res.json(deleteUser);
+  } catch(err) {
+    console.error(err)
+  } 
+});
+
   app.listen(port, () => console.log(`Listening on port ${port}`));
