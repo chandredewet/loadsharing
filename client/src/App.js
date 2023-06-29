@@ -7,6 +7,7 @@ import Schedule from "./pages/Schedule";
 import Contact from "./pages/Contact";
 
 const App = () => {
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

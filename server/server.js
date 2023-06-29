@@ -50,7 +50,7 @@ app.post("/users", async (req, res) => {
   
 //edit user
 app.put('/users/:id', async (req,res) => {
-  console.log(`Edit user ${id} in process...`)
+  console.log(`Edit user in process...`)
   const { id } = req.params;
   const {name, email, colour, area}  = req.body;
   try {
@@ -64,7 +64,7 @@ app.put('/users/:id', async (req,res) => {
 //delete a user
 
 app.delete('/users/:id', async (req,res) => {
-  console.log(`Deleting user ${id}...`)
+  console.log(`Deleting user..`)
   const { id } = req.params;
   try {
     const deleteUser = await pool.query('DELETE FROM ls_users WHERE id= $1;',[id])
@@ -72,6 +72,21 @@ app.delete('/users/:id', async (req,res) => {
   } catch(err) {
     console.error(err)
   } 
+});
+
+
+//show distinct areas
+
+
+app.get('/areas', async (req, res) => {
+  console.log("All users to be listed...")
+  try{
+    const users = await pool.query("SELECT DISTINCT user_area_name FROM ls_users")
+    res.json(users.rows)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json(error);
+  }
 });
 
   app.listen(port, () => console.log(`Listening on port ${port}`));

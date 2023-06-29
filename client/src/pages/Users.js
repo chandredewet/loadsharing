@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Users.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
