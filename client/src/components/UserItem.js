@@ -4,14 +4,15 @@ import { SocialIcon } from 'react-social-icons';
 import editicon from '../images/user_edit.png';
 import deleteicon from '../images/user_bin.png';
 import UsersForm from './UsersForm';
-import './EditDelUserButton.css';
+import './UserItem.css';
+import getData from '../functions/getData';
 
-const UserItem = ({user, getData}) => {
+const UserItem = ({user,setUsersData}) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true); 
-
+    
     const deleteUser = async() => {
         console.log(`Deleting user ${user.id}`)
         try{
@@ -19,7 +20,12 @@ const UserItem = ({user, getData}) => {
                         method: 'DELETE'
                 })
                 if (response.status === 200) {
-                        getData();
+                        console.log ("Success", response)
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        const data = await getData();
+                        console.log(typeof setUserData)
+                        setUsersData(data);
+                        handleClose();       
                 }                 
         } catch(err) {
         console.error(err)
@@ -53,7 +59,7 @@ const UserItem = ({user, getData}) => {
                         </div>
                 </ListGroup.Item>
                 
-                <UsersForm show={show} handleClose={handleClose} mode="Edit" getData={getData} user={user} />
+                <UsersForm show={show} handleClose={handleClose} mode="Edit" user={user} setUsersData={setUsersData} />
         </div>
         );
 }

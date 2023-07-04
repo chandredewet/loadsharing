@@ -2,7 +2,7 @@ const express = require("express");
 let cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
-
+const userData = [];
 const { Pool } = require("pg");
 
 //middleware resolves the Access to fetch at 'http://localhost:5000/' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 
@@ -42,7 +42,9 @@ app.post("/users", async (req, res) => {
      [name, email, colour, area])
     console.log(newUser)
     res.json(newUser);
+    console.log("adding + newUser");
   } catch (error) {
+    console.log("error adding" + newUser);
     console.error(error);
     res.status(500).json(error);
   }
@@ -74,19 +76,46 @@ app.delete('/users/:id', async (req,res) => {
   } 
 });
 
+//add unique areas
+app.post("/areas", async (req, res) => {
+ 
+  const requestTime = new Date().toLocaleString(); // Get current date and time
+  console.log(`Area to be added... (${requestTime})`);
 
-//show distinct areas
-
-
-app.get('/areas', async (req, res) => {
-  console.log("All users to be listed...")
-  try{
-    const users = await pool.query("SELECT DISTINCT user_area_name FROM ls_users")
-    res.json(users.rows)
+  const {area_name} = req.body
+  console.log(area_name);
+  try {
+    const newArea = await pool.query(`INSERT INTO ls_areas (area_area_name) VALUES ($1)`, 
+     [area_name])
+    // console.log(newUser)
+    res.json(newArea);
+    console.log("adding + newArea");
   } catch (error) {
-    console.error(error)
+    console.log("error adding");
+    console.error(error);
     res.status(500).json(error);
   }
 });
 
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+//add schedule per user
+app.post("/schedule", async (req, res) => {
+ 
+  const requestTime = new Date().toLocaleString(); // Get date and time
+  console.log(`Schedule to be added... (${requestTime})`);
+
+  const {area_name} = req.body
+  console.log(area_name);
+  try {
+    const newSchedule = await pool.query(`INSERT INTO ls_schedule (schedule_area_name, start, finsh, name, colour) VALUES ($1,$2,$3,$4, $5)`, 
+     [schedule_area_name, start, finsh, name, colour])
+
+    res.json(newSchedule);
+    console.log("adding + newSchedule");
+  } catch (error) {
+    console.log("error adding");
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Areas from './../data/Areas';
 import Modal from 'react-bootstrap/Modal';
+import getData from '../functions/getData';
 
 
-const UsersForm = ({ mode, show, handleClose, getData, user}) => {
+const UsersForm = ({ mode, show, handleClose, user, setUsersData}) => {
+
 
 const editMode = mode === "Edit" ? true : false;
 
@@ -24,26 +26,26 @@ const handleChange = (e) => {
 }
 
 const handleAdd = async (event) => {
-    event.preventDefault();
-    console.log("Sending data to server");
-    
-    try {
-      const response = await fetch("http://localhost:5000/users", {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        console.log ("Success", response)
-        await new Promise(resolve => setTimeout(resolve, 500));
-        getData();
-        handleClose();       
-      }
-    } catch(err) {
-      console.error(err);
+  event.preventDefault();
+  console.log("Sending data to server");
+  
+  try {
+    const response = await fetch("http://localhost:5000/users", {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      console.log ("Success", response)
+      await new Promise(resolve => setTimeout(resolve, 500));
+      getData();
+      handleClose();       
     }
+  } catch(err) {
+    console.error(err);
+  }
 } 
 
 const handleEdit = async (event) => {
@@ -56,8 +58,12 @@ const handleEdit = async (event) => {
       body: JSON.stringify(userData)
     })
     if (response.status === 200) {
-      getData();
-      handleClose();   
+       
+      console.log ("Success", response)
+      await new Promise(resolve => setTimeout(resolve, 500));
+      const data = await getData();
+      setUsersData(data);
+      handleClose();       
     }
   } catch(err) {
     console.error(err);
@@ -76,7 +82,6 @@ const handleEdit = async (event) => {
             className="shadow p-3 mb-5 bg-white rounded" 
             noValidate
             autoComplete="off"
-            // onSubmit={handleAdd}
             >
     
               <Form.Group className="mb-3">
